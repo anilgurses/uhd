@@ -303,10 +303,10 @@ class USRPCalibratorBase:
             # and usrp_input_power is in dBm. However, this is the reference
             # signal, so we need the power (in dBm) that corresponds to 0 dBFS.
             # The assumption is that digital gain is linear, so what we really
-            # want is usrp_input_power - (recvd_signal_power - 0dBFS), and the
+            # want is usrp_input_power + (recvd_signal_power - 0dBFS), and the
             # result of the equation is in dBm again. We omit the subtract-by-zero
             # since our variables don't have units.
-            results[gain] = usrp_input_power - recvd_signal_power
+            results[gain] = usrp_input_power + recvd_signal_power
             self.log(f"{gain:4.2f} dB => {results[gain]:+6.2f} dBm")
             # If we get too close to the noise floor, we stop
             if recvd_power - self._noise[freq][gain] <= 1.5:
